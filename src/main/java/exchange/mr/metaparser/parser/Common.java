@@ -48,7 +48,7 @@ public class Common  {
 	  Transaction txn = (Transaction) STObject.fromJSONObject(transactionJson.getJSONObject("tx"));
 
 		AccountID txnAccId = txn.account();
-//		Hash256 txnHash = txn.hash();
+		Hash256 txnHash = txn.hash();
 //		String ledgerIndex = txn.lastLedgerSequence().toString();
 //		String date = txn.get(Field.CloseTime).toString();
 		UInt32 txnSequence = txn.sequence();
