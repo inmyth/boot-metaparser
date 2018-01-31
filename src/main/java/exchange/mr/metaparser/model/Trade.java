@@ -13,9 +13,9 @@ public class Trade {
 	public final String date;
 	public final String ledger_index;
 
-	public final List<Amount> pay = new ArrayList<>();
-	public final List<Amount> get = new ArrayList<>();
-	public final List<Amount> fee = new ArrayList<>();
+	public final List<SimpleAmount> pay = new ArrayList<>();
+	public final List<SimpleAmount> get = new ArrayList<>();
+	public final List<SimpleAmount> fee = new ArrayList<>();
 	public List<RLOrder> dirty = new ArrayList<>();
 	
 	public Trade(String hash, String date, String ledger_index) {
@@ -25,19 +25,21 @@ public class Trade {
 		this.ledger_index = ledger_index;
 	}
 
-	public void addPay(Amount a) {
+	public void addPay(SimpleAmount a) {
 		pay.add(a);
 	}
 	
-	public void addGet(Amount a) {
+	public void addGet(SimpleAmount a) {
 		get.add(a);
 	}
 	
-	public void addFee(Amount a) {
+	public void addFee(SimpleAmount a) {
 		fee.add(a);
 	}
 	
 	public List<RLOrder> getDirty() {
 		return dirty;
 	}
+	
+	
 }

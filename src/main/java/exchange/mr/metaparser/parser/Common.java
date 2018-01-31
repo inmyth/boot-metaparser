@@ -78,11 +78,8 @@ public class Common  {
 						UInt32 prevSeq	 			 = asPrevious.get(UInt32.Sequence);
 						Offer o 							 = (Offer) asPrevious;
 						//FinalFields.Flag can be 0 or  131072, this is unclear
-						if (nodeAccount != null && nodeAccount.address.equals(myAddress) && asPrevious.get(Field.LedgerEntryType) == LedgerEntryType.Offer) {
-					
-							if (node.nested.get(Field.PreviousFields) != null) {
-								offersExecuteds.add(o);
-							}
+						if (nodeAccount != null && asPrevious.get(Field.LedgerEntryType) == LedgerEntryType.Offer && node.nested.get(Field.PreviousFields) != null) {			
+								offersExecuteds.add(o);						
 						}
 					} 
 
@@ -92,7 +89,7 @@ public class Common  {
 						LedgerEntry le = (LedgerEntry) node.nodeAsFinal();
 						AccountID nodeAccount = le.get(AccountID.Account);
 						Offer o = (Offer) asPrevious;
-						if (nodeAccount != null && nodeAccount.address.equals(myAddress) && le.get(Field.LedgerEntryType) == LedgerEntryType.Offer) {
+						if (nodeAccount != null && le.get(Field.LedgerEntryType) == LedgerEntryType.Offer) {
 							offersExecuteds.add(o);
 						}
 					}
@@ -135,7 +132,7 @@ public class Common  {
 				for (Offer offer : offersExecuteds) {
 					STObject finalFields = offer.get(STObject.FinalFields);
 					UInt32 affectedSeq = offer.get(UInt32.Sequence);
-					if (finalFields != null && isTakersExist(finalFields)) {
+					if (finalFields != null && isTakersExist(finalFields) && offer.account().address.equals(myAddress)) {
 						res.add(RLOrder.fromOfferExecuted(offer, true));
 //						ors.add(RLOrder.toBA(offer.takerPays(), offer.takerGets(), finalFields.get(Amount.TakerPays), finalFields.get(Amount.TakerGets), affectedSeq, txnHash, ourOfferCreate));
 					}
@@ -148,7 +145,7 @@ public class Common  {
 				STObject finalFields = offer.get(STObject.FinalFields);
 				UInt32 affectedSeq = offer.get(UInt32.Sequence);
 
-				if (finalFields != null && isTakersExist(finalFields)) {
+				if (finalFields != null && isTakersExist(finalFields)  && offer.account().address.equals(myAddress)) {
 					res.add(RLOrder.fromOfferExecuted(offer, true));
 				}
 			}

@@ -8,9 +8,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+import exchange.mr.metaparser.model.SimpleAmount;
 import exchange.mr.metaparser.model.Trade;
 import exchange.mr.metaparser.parser.Common;
 import exchange.mr.metaparser.parser.RLOrder;
@@ -38,7 +37,7 @@ public class DataapiService {
   }
 
 	private static DataapiInterface makeWebRest(String url) {
-		Gson gson = new GsonBuilder().setLenient().create();
+//		Gson gson = new GsonBuilder().setLenient().create();
 
 		Retrofit retrofit = new Retrofit.Builder().baseUrl(url)
 //				.addConverterFactory(GsonConverterFactory.create(gson))
@@ -75,9 +74,10 @@ public class DataapiService {
 		})
 		.map(t -> {			
 			for(RLOrder rl : t.dirty) {
-				t.get.add(rl.getQuantity().abs());
-				t.pay.add(rl.getTotalPrice().abs());
+				t.get.add(new SimpleAmount(rl.getQuantity().abs()));
+				t.pay.add(new SimpleAmount(rl.getTotalPrice().abs()));
 			}
+			t.dirty = null;
 			return t;
 		})
 		.collect(Collectors.toList());

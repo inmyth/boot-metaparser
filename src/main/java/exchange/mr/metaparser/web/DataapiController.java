@@ -27,7 +27,7 @@ public class DataapiController {
 	private DataapiService service;
 	
 	@RequestMapping("/accounts/{account}/transactions")
-	@ResponseBody
+//	@ResponseBody
 	public List<Trade> accountTx(
 			@PathVariable String account,
 			@RequestParam String result,
