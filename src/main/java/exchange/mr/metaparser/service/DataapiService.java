@@ -77,7 +77,6 @@ public class DataapiService {
 				t.get.add(new SimpleAmount(rl.getQuantity().abs()));
 				t.pay.add(new SimpleAmount(rl.getTotalPrice().abs()));
 			}
-			t.dirty = null;
 			return t;
 		})
 		.collect(Collectors.toList());

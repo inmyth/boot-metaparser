@@ -3,6 +3,7 @@ package exchange.mr.metaparser.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ripple.core.coretypes.Amount;
 
 import exchange.mr.metaparser.parser.RLOrder;
@@ -16,6 +17,8 @@ public class Trade {
 	public final List<SimpleAmount> pay = new ArrayList<>();
 	public final List<SimpleAmount> get = new ArrayList<>();
 	public final List<SimpleAmount> fee = new ArrayList<>();
+  
+	@JsonIgnore 
 	public List<RLOrder> dirty = new ArrayList<>();
 	
 	public Trade(String hash, String date, String ledger_index) {
