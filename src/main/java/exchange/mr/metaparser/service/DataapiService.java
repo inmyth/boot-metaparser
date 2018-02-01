@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 
 import exchange.mr.metaparser.model.SimpleAmount;
+import exchange.mr.metaparser.model.SimpleOffer;
 import exchange.mr.metaparser.model.Trade;
 import exchange.mr.metaparser.parser.Common;
 import exchange.mr.metaparser.parser.RLOrder;
@@ -73,9 +74,8 @@ public class DataapiService {
 			return !r.dirty.isEmpty();
 		})
 		.map(t -> {			
-			for(RLOrder rl : t.dirty) {
-				t.get.add(new SimpleAmount(rl.getQuantity().abs()));
-				t.pay.add(new SimpleAmount(rl.getTotalPrice().abs()));
+			for(RLOrder rl : t.dirty) {				
+				t.addData(new SimpleOffer(new SimpleAmount(rl.getQuantity().abs()), new SimpleAmount(rl.getTotalPrice().abs())));
 			}
 			return t;
 		})

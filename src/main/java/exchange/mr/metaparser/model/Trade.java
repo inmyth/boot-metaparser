@@ -14,9 +14,7 @@ public class Trade {
 	public final String date;
 	public final String ledger_index;
 
-	public final List<SimpleAmount> pay = new ArrayList<>();
-	public final List<SimpleAmount> get = new ArrayList<>();
-	public final List<SimpleAmount> fee = new ArrayList<>();
+	public final List<SimpleOffer> data = new ArrayList<>();
   
 	@JsonIgnore 
 	public List<RLOrder> dirty = new ArrayList<>();
@@ -28,16 +26,8 @@ public class Trade {
 		this.ledger_index = ledger_index;
 	}
 
-	public void addPay(SimpleAmount a) {
-		pay.add(a);
-	}
-	
-	public void addGet(SimpleAmount a) {
-		get.add(a);
-	}
-	
-	public void addFee(SimpleAmount a) {
-		fee.add(a);
+	public void addData(SimpleOffer a) {
+		data.add(a);
 	}
 	
 	public List<RLOrder> getDirty() {
